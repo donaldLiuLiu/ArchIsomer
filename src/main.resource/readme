@@ -1,0 +1,62 @@
+I can build a java project by maven, and then add SB component
+1、使用maven构建一个java工程，检查工程编码，检查工程目录结构
+2、在pom.xml中使用parent引入sb通用配置，使用plugin定义SB项目打包插件
+3、AutoConfiguration and 起步依赖 、CLI机制、监控Actuator、Grails
+
+@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan
+
+Configuration加载规则
+
+起步依赖表现为各种starter形式的依赖
+
+AutoConfiguration机制原理如下：
+spring-boot-starter的起步依赖中，会加载spring-boot-autoconfigure.jar
+该jar包配置了大量的autoCOnfiguration类，采用javaConfig机制自动配置各种组件
+for instance:
+@Configuration
+@ConditionalOnProperty(value = "spring.mvc.favicon.enabled", matchIfMissing = true)
+public static class FaviconConfiguration {
+	@Bean
+	public SimpleUrlHandlerMapping faviconHandlerMapping() {
+		SimpleUrlHandlerMapping mapping = new SimpleUrlHandlerMapping();
+		mapping.setOrder(Ordered.HIGHEST_PRECEDENCE + 1);
+		mapping.setUrlMap(Collections.singletonMap("**/favicon.ico",
+				faviconRequestHandler()));
+		return mapping;
+	}
+}
+//当spring.mvc.favicon.enabled=true时，将会创建SimpleUrlHandlerMapping的实现
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+spring boot 与原生态 spring security的结合 问题？
+尝试性的使用下spring boot 中 默认的security配置和手动覆盖配置
+看其使用的特定场景
+
+spring boot中 接口认证的实现
+与资源授权
+
+
+
+sb中
+@configuration中使用componentScan扫描的bean?
