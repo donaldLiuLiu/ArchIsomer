@@ -3,3 +3,4 @@
 .settings/
 src/test/java/com/freshjuice/fl/ArchIsomerTest.java
 target/
+ArchIsomer.iml
