@@ -11,7 +11,7 @@ spring:
     content-type: text/html
     mode: HTML5
 server:
-  port: 8080
+  port: 8084
 
 #
 #spring-boot-starter-web
