@@ -10,6 +10,10 @@ spring:
     encoding: UTF-8
     content-type: text/html
     mode: HTML5
+  mvc:
+    servlet:
+      path: /
+    throw-exception-if-no-handler-found: true
 server:
   port: 8084
 
@@ -53,12 +57,26 @@ server:
 #1）、对于controller中执行业务方法等抛出的异常，一般通过@ControllerAdvice@ExceptionHandler处理
 #2）、extends BasicErrorController 实现自定义的数据返回格式
 #
-#9、支持cors跨域
+#9、api 跨域（cors）
+# WebMvcConfigurer中addCorsMappings方法
+# 在controller中使用@CrossOrigin
 #
 #10、java ee filter、servlet、listener支持
 #
+#11、locale支持?
+#
+#12、MultipartResolver?
+#
+#
 
+#aop
+#spring.aop.auto=true
+#spring.aop.proxy-target-class=true
+#
 
+#banner is what??
+
+#WebFlux Reactive??
 
 #
 #spring-boot-logging
@@ -77,6 +95,11 @@ logging:
 #(当使用logback-spring.xml命名时，可以使用spring提供的额外语法)
 #
 
+#mybatis
+mybatis:
+  type-aliases-package: com.freshjuice.fl.dto
+  mapper-locations: classpath:/**/*.sqlmap.xml
+#
 
 
 #devtools restart相关配置
@@ -105,12 +128,6 @@ logging:
 
 #LiveReload: broser refresh trigger
 #spring.devtools.livereload.enabled=false can禁用
-
-
-
-
-
-
 
 
 
