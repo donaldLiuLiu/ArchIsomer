@@ -27,11 +27,11 @@ server:
 #通过WebMvcConfigurer接口中的addResourceHandlers方法可以增加静态资源的加载
 #
 #2、访问localhost:8080， spring boot内置servlet容器将web应用作为默认web应用，所以不用加web应用的名称
-#默认情况下，spring boot将会在静态资源中找index.html、在视图资源中找index视图
-#（注： 一般而言，提供接口服务的sb程序，没有静态资源和视图资源的，所以，一般提供一个  / 接口）
+#默认情况下，spring boot(应该是默认配置了对/请求的mapping)将会在静态资源中找index.html、在视图资源中找index视图
+#程序中如果在HandlerMappingRequestMapping中设置/的mapping，将覆盖上述
 #
 #3、favicon支持
-#在静态资源和classpath中找favicon.ico
+#在静态资源和classpath中找favicon.ico (实际是通过配置的handlerMapping加载favicon.ico)
 #
 #4、spring boot web autoConfiguration的handlerMapping、handlerAdapter
 #只要了解AutoConfiguration的原理，对着源码看大致没什么问题
@@ -41,7 +41,7 @@ server:
 #6、实现WebMvcRegistrations接口能够做什么
 #覆盖默认的RequestMappingHandlerMapping，RequestMappingHandlerAdapter，ExceptionHandlerExceptionResolver
 #（和WebMvcConfigurer定制化的维度不同）
-#7、@EnableWebMvc
+#7、@EnableWebMvc take complete control of spring mvc
 #
 #8、spring boot的默认异常resolver
 #在spring boot中默认定义了ExceptionHandlerExceptionResolver 用于处理@ControllerAdvice@ExceptionHandler
