@@ -1,7 +1,8 @@
 package com.freshjuice.fl.test;
 
-import com.freshjuice.fl.dao.base.IUserMapper;
-import com.freshjuice.fl.dto.base.User;
+import com.freshjuice.fl.dao.base.ITempMapper;
+import com.freshjuice.fl.dto.base.Temp;
+import com.freshjuice.fl.service.base.ITempService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +20,16 @@ public class TempTest {
     private ApplicationContext applicationContext;
 
     @Autowired
-    private IUserMapper userMapper;
+    private ITempMapper tempMapper;
+
+    @Autowired
+    private ITempService tempService;
 
     @Test
     public void test() {
-        DataSource ds = applicationContext.getBean(DataSource.class);
-        System.out.println(ds);
+       Temp temp = tempService.getTempById(1L);
 
-        User user = userMapper.getUserById("u1");
-        System.out.println(user);
+       System.out.println(temp);
     }
 
 }
