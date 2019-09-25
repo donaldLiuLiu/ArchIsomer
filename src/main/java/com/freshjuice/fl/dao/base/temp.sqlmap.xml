@@ -2,8 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.freshjuice.fl.dao.base.ITempMapper">
 	
+    <select id="selectTempById" parameterType="java.lang.Long" resultType="temp">
+      select id, temp_name, temp_num, temp_dt, temp_d, temp_t, deleteFlag, createTime, updateTime
+      from temp where id = #{value, jdbcType=BIGINT}
+    </select>
 
+    <delete id="deleteTempById" parameterType="java.lang.Long">
+        update temp set deleteFlag=1 where id=#{value, jdbcType=BIGINT}
+    </delete>
 
+    <update id="updateTemp" parameterType="temp">
+        update temp set deleteFlag=0
+            <if test="temp_name != null and temp_name != ''">,temp_name=#{temp_name}</if>
+            <if test="temp_num != null and temp_num != 0">,temp_num=#{temp_num}</if>
+            <if test="temp_dt != null and temp_dt != ''">,temp_dt=#{temp_dt}</if>
+            <if test="temp_d != null and temp_d != ''">,temp_d=#{temp_d}</if>
+            <if test="temp_t != null and temp_t != ''">,temp_t=#{temp_t}</if>
+        where id = #{id, jdbcType=BIGINT}
+    </update>
 
 
 </mapper>
