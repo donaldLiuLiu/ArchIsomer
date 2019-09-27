@@ -8,7 +8,7 @@
   <packaging>jar</packaging>
 
   <name>ArchIsomer</name>
-  <description>ArchIsomer</description>
+  <description>ArchIsomer 通用service</description>
   
   <parent>
   	<groupId>org.springframework.boot</groupId>
@@ -17,11 +17,11 @@
   	<relativePath /> <!-- lookup parent from repository -->
   </parent>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-    </properties>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.8</java.version>
+  </properties>
   
   <dependencies>
   	<!-- spring boot starter -->
@@ -57,37 +57,42 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
-    <!-- datasource -->
-    <dependency>
-        <groupId>com.alibaba</groupId>
-        <artifactId>druid</artifactId>
-        <version>1.0.19</version>
-    </dependency>
+
+      <!-- mysql 驱动 -->
+      <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+      </dependency>
+      <!-- datasource -->
+      <dependency>
+          <groupId>com.alibaba</groupId>
+          <artifactId>druid-spring-boot-starter</artifactId>
+          <version>1.1.20</version>
+      </dependency>
+
+      <!-- mybatis-plus -->
+      <dependency>
+          <groupId>com.baomidou</groupId>
+          <artifactId>mybatis-plus-boot-starter</artifactId>
+          <version>3.2.0</version>
+          <!--<scope>compile</scope>-->
+      </dependency>
+
     <!-- mybatis -->
-    <dependency>
+    <!--<dependency>
         <groupId>org.mybatis.spring.boot</groupId>
         <artifactId>mybatis-spring-boot-starter</artifactId>
         <version>2.1.0</version>
-    </dependency>
-
+    </dependency>-->
     <!-- jdbc -->
-    <dependency>
+    <!--<dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-jdbc</artifactId>
-    </dependency>
+    </dependency>-->
 
-    <!-- mysql 驱动 -->
-    <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-    </dependency>
 
-    <!-- mybatis-plus -->
-    <dependency>
-        <groupId>com.baomidou</groupId>
-        <artifactId>mybatis-plus-boot-starter</artifactId>
-        <version>3.2.0</version>
-    </dependency>
+
+
 
   </dependencies>
   

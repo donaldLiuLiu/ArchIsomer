@@ -1,0 +1,18 @@
+package创建规范
+ com.freshjuice.fl
+ com.freshjuice.fl.模块名.mapper
+ com.freshjuice.fl.模块名.entity
+ com.freshjuice.fl.模块名.service
+ com.freshjuice.fl.模块名.service.impl
+ com.freshjuice.fl.模块名.controller
+数据库规范
+ 1.数据表名用小写英文单词书写如user,多个单词使用'_'如user_tag
+ 2.数据字段用小写英文单词书写如phone,多个单词使用'_'如nick_name
+entity规范
+ 1.entity类与数据库一一对应,phone:phone;nick_name:nickName
+ 2.entity字段使用注解判断？？
+ 3.使用lombok标注entity类
+
+持久层使用mybatis,使用mybatis-plus增强
+
+

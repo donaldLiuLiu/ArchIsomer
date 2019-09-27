@@ -96,11 +96,14 @@ logging:
 #
 
 #mybatis
-mybatis:
-  type-aliases-package: com.freshjuice.fl.dto
-  mapper-locations: classpath:/**/*.sqlmap.xml
+#mybatis:
+#  type-aliases-package: com.freshjuice.fl.base.entity
+#  mapper-locations: classpath:/**/*.sqlmap.xml
 #
 
+mybatis-plus:
+  mapper-locations: classpath*:/**/*.sqlmap.xml
+  type-aliases-package: com.freshjuice.fl.**.entity
 
 #devtools restart相关配置
 #by default devtools 禁用了缓存，如Thymeleaf视图的缓存

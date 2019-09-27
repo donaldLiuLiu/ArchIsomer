@@ -5,7 +5,7 @@ spring:
     url: jdbc:mysql://47.98.221.91:3306/mydb1?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8:00
     username: root
     password: SysLiu75#ce.uni
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     initialSize: 5
     minIdle: 5
     maxActive: 20

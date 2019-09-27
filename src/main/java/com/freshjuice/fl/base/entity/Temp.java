@@ -1,6 +1,8 @@
-package com.freshjuice.fl.dto.base;
+package com.freshjuice.fl.base.entity;
 
-public class Temp {
+import java.io.Serializable;
+
+public class Temp implements Serializable {
 
     private Long id;
     private String tempName;

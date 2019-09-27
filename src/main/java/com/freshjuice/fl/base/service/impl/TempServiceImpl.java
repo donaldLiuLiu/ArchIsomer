@@ -1,15 +1,16 @@
-package com.freshjuice.fl.service.base.impl;
+package com.freshjuice.fl.base.service.impl;
 
-import com.freshjuice.fl.dao.base.ITempMapper;
-import com.freshjuice.fl.dto.base.Temp;
-import com.freshjuice.fl.service.base.ITempService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.freshjuice.fl.base.mapper.TempMapper;
+import com.freshjuice.fl.base.entity.Temp;
+import com.freshjuice.fl.base.service.ITempService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TempServiceImpl implements ITempService {
+public class TempServiceImpl extends ServiceImpl<TempMapper, Temp> implements ITempService {
     @Autowired
-    private ITempMapper tempMapper;
+    private TempMapper tempMapper;
 
 
     @Override

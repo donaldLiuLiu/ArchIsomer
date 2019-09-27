@@ -1,10 +1,11 @@
-package com.freshjuice.fl.dao.base;
+package com.freshjuice.fl.base.mapper;
 
-import com.freshjuice.fl.dto.base.Temp;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.freshjuice.fl.base.entity.Temp;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface ITempMapper {
+public interface TempMapper extends BaseMapper<Temp> {
 
     void insertTemp(Temp temp);
 

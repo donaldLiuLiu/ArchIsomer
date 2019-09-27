@@ -5,7 +5,7 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/mydb1?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8:00
     username: root
     password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     initialSize: 5
     minIdle: 5
     maxActive: 20

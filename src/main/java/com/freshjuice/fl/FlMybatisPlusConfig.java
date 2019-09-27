@@ -6,11 +6,10 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@EnableTransactionManagement
+
 @Configuration
-@MapperScan("com.freshjuice.fl.dao")
+@MapperScan("com.freshjuice.fl.**.mapper")
 public class FlMybatisPlusConfig {
 
     /**

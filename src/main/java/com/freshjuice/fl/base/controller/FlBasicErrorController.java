@@ -1,4 +1,4 @@
-package com.freshjuice.fl.controller;
+package com.freshjuice.fl.base.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -47,7 +47,7 @@ public class FlBasicErrorController extends BasicErrorController {
         return(modelAndView == null ? new ModelAndView("/error/toError") : modelAndView); //跳转controller
     }
 	
-    @RequestMapping("/toError")
+    @RequestMapping("/error/toError")
     public void toError(HttpServletRequest request, HttpServletResponse response) {
     	try {
     		HttpStatus status = getStatus(request);
