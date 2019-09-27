@@ -1,9 +1,13 @@
 package com.freshjuice.fl.base.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 
 public class Temp implements Serializable {
 
+    @TableId(type= IdType.ID_WORKER)
     private Long id;
     private String tempName;
     private Integer tempNum;

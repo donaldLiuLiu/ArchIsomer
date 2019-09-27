@@ -3,27 +3,27 @@
 <mapper namespace="com.freshjuice.fl.base.mapper.TempMapper">
 
     <insert id="insertTemp" parameterType="temp">
-        insert into temp(id,deleteFlag
-          <if test="temp_name != null and temp_name != ''">,temp_name</if>
-          <if test="temp_num != null">,temp_num</if>
-          <if test="temp_dt != null and temp_dt != ''">,temp_dt</if>
-          <if test="temp_d != null and temp_d != ''">,temp_d</if>
-          <if test="temp_t != null and temp_t != ''">,temp_t</if>
+        insert into temp(id,delete_flag
+          <if test="tempName != null and tempName != ''">,temp_name</if>
+          <if test="tempNum != null">,temp_num</if>
+          <if test="tempDt != null and tempDt != ''">,temp_dt</if>
+          <if test="tempD != null and tempD != ''">,temp_d</if>
+          <if test="tempT != null and tempT != ''">,temp_t</if>
         ) values(#{id},0
-            <if test="temp_name != null and temp_name != ''">,#{tempName}</if>
-            <if test="temp_num != null">,#{tempNum}</if>
-            <if test="temp_dt != null and temp_dt != ''">,#{tempDt}</if>
-            <if test="temp_d != null and temp_d != ''">,#{tempD}</if>
-            <if test="temp_t != null and temp_t != ''">,#{tempT}</if>
+            <if test="tempName != null and tempName != ''">,#{tempName}</if>
+            <if test="tempNum != null">,#{tempNum}</if>
+            <if test="tempDt != null and tempDt != ''">,#{tempDt}</if>
+            <if test="tempD != null and tempD != ''">,#{tempD}</if>
+            <if test="tempT != null and tempT != ''">,#{tempT}</if>
         )
     </insert>
 
     <delete id="deleteTempById" parameterType="java.lang.Long">
-        update temp set deleteFlag=1 where id=#{value, jdbcType=BIGINT}
+        update temp set delete_flag=1 where id=#{value, jdbcType=BIGINT}
     </delete>
 
     <update id="updateTemp" parameterType="temp">
-        update temp set deleteFlag=0
+        update temp set delete_flag=0
             <if test="tempName != null and tempName != ''">,temp_name=#{tempName}</if>
             <if test="tempNum != null">,temp_num=#{tempNum}</if>
             <if test="tempDt != null and tempDt != ''">,temp_dt=#{tempDt}</if>
@@ -34,7 +34,7 @@
 
 
     <select id="selectTempById" parameterType="java.lang.Long" resultType="temp">
-      select id, temp_name, temp_num, temp_dt, temp_d, temp_t, deleteFlag, createTime, updateTime
+      select id, temp_name as TempName, temp_num as tempNum, temp_dt as TempDt, temp_d as tempD, temp_t as tempT, delete_flag as deleteFlag, create_time as createTime, update_time as UpdateTime
       from temp where id = #{value, jdbcType=BIGINT}
     </select>
 
