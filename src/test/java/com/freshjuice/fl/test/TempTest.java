@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.freshjuice.fl.base.mapper.TempMapper;
 import com.freshjuice.fl.base.entity.Temp;
 import com.freshjuice.fl.base.service.ITempService;
+import net.sf.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -30,11 +33,35 @@ public class TempTest {
     private ITempService tempService;
 
     @Test
-    public void test() {
-       Temp temp = tempService.getTempById(1L);
+    public void test() throws Exception {
 
 
-       System.out.println(temp);
+        /*JSONObject jsonObject_data = new JSONObject();
+        jsonObject_data.put("id", "001");
+        jsonObject_data.put("name", "hello 世界");
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", "001");
+        jsonObject.put("message", "hello 世界");
+        jsonObject.put("data", jsonObject_data);
+        System.out.println(jsonObject);*/
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, String> map_data = new HashMap<String, String>();
+        map_data.put("id", "1");
+        map_data.put("name", "hello 世界");
+        map.put("code", "001");
+        map.put("data", map_data);
+
+        JSONObject jsonObject = JSONObject.fromObject(map);
+        System.out.println(jsonObject);
+
+        JSONObject k = JSONObject.fromObject(jsonObject.toString());
+        System.out.println(k);
+
+        Object mm = JSONObject.toBean(k, Map.class);
+        System.out.println(mm);
+
     }
 
 
