@@ -1,82 +1,40 @@
-
-drop table if exists k_user;
-create table k_user
+##权限解决方案
+#1. 资源抽象
+#2. 资源对应权限
+drop table if exists resource_priority;
+create table resource_priority
 (
-	userId varchar(32) primary key,
-	userName varchar(100),
-	userPswd varchar(100)
+	id bigint primary key,
+	resource_code varchar(50),
+	resource_name varchar(100),
+	priority_code varchar(50),
+	priority_name varchar(100),
+	create_time timestamp DEFAULT CURRENT_TIMESTAMP,
+	modify_time timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-drop table if exists k_role;
-create table k_role
-(
-	roleId varchar(32) primary key,
-	roleCode varchar(32),
-	roleName varchar(100)
-);
+##1-1
+insert into resource_priority(id, resource_code, resource_name, priority_code, priority_name)
+values (null, 'President_Transfer_Job', '社长职务转让', 'President_Transfer_Job', '社长职务转让');
 
-drop table if exists k_user_role;
-create table k_user_role
-(
-	urid varchar(32) primary key,
-	userId varchar(32),
-	roleId varchar(32)
-);
+insert into resource_priority(id, resource_code, resource_name, priority_code, priority_name)
+values(null, 'Set_Member_Info',	'设置成员资料',	'Set_Member_Info',	'设置成员资料');
 
-drop table if exists k_priority_resource;
-create table k_priority_resource
-(
-	priorityId varchar(32) primary key,
-	priorityCode varchar(100),
-	priorityName varchar(100),
-	authf char(1),
-	suthif char(1),
-	showf char(1),
-	resourceCode varchar(100),
-	resourceName varchar(100),
-	resourceUrl varchar(200),
-	resourcePCode varchar(100)
-);
+##1-n
+insert into resource_priority(id, resource_code, resource_name, priority_code, priority_name)
+values (null, 'Just_ppp', 'ppp', 'Just_ppp', 'ppp');
 
---字段说明
---authf: 是否需要认证0-不需要;1-需要
---1、如果父资源配置authf=1,子资源配置也应该配置成authf=1
---2、如果父资源配置authf=0,子资源配置配置authf=1/0都可以
---3、如果一个资源authf=0,但是配置为需要授权,则授权必定会失败
---4、如果一个资源authf=1,配置为无需授权则无需授权，配置为需要授权则需要授权
---
---showf: 标记该资源是否可显示0-不显示，1-显示
---
---priorityCode: 如果该资源需要授权则应该设置值
---authif: 是否需要授权，当authf=0（无需认证）,该值应该无效
+insert into resource_priority(id, resource_code, resource_name, priority_code, priority_name)
+values (null, 'Just_ppp', 'ppp', 'Just_ppp_Add', 'ppp新增');
 
-单体，后端认证与授权说明
-1、前端页面跳转对后端透明，前端页面跳转操作时，它对应k_priority_resource表中一条资源记录
-showf=1，authf=1（1：该资源需要认证），resourceUrl=null，
-前端应该调用后端的check接口(参数传递resourceCode)，该check接口
-被认证拦截器拦截（该check接口无需认证和授权），直接执行check接口逻辑：
-1）、如果resourceCode对应的authf=0,返回可以跳转
-2）、如果resourceCode对应的authf=1,如果当前没有authentication,返回未登录
-3）、如果resourceCode对应的authf=1,如果当前有authentication,
-如果authif=0,返回已认证无需授权
-如果authif=1,则校验该authentication是否有该resourceCode的权限
+insert into resource_priority(id, resource_code, resource_name, priority_code, priority_name)
+values (null, 'Just_ppp', 'ppp', 'Just_ppp_Del', 'ppp删除');
 
-2、后端提供的接口保存在k_priority_resource
-resourceUrl=接口路径
+insert into resource_priority(id, resource_code, resource_name, priority_code, priority_name)
+values (null, 'Just_ppp', 'ppp', 'Just_ppp_Mod', 'ppp修改');
 
-3、手机端接口支持
-1）、自定义认证拦截器实现auth2服务端认证机制
-2）、手机端权限控制和后端无关，后端与手机端接口认证和接口数据交互
-
-
-
-drop table if exists k_role_priority;
-create table k_role_priority
-(
-	rpid varchar(32) primary key,
-	roleId varchar(32),
-	priorityId varchar(32)
-);
+insert into resource_priority(id, resource_code, resource_name, priority_code, priority_name)
+values (null, 'Just_ppp', 'ppp', 'Just_ppp_Get', 'ppp查询');
 
 
 

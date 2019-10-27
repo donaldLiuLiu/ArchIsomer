@@ -29,10 +29,10 @@ public class FlBasicErrorController extends BasicErrorController {
     public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
         Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
         HttpStatus status = getStatus(request);
-        //输出自定义的Json格式
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("code", false);
-        map.put("msg", body.get("message"));
+        map.put("success", false);
+        map.put("code", "-1");
+        map.put("message", body.get("message"));
         return new ResponseEntity<Map<String, Object>>(map, status);
     }
     
@@ -43,7 +43,6 @@ public class FlBasicErrorController extends BasicErrorController {
         response.setStatus(getStatus(request).value());
         Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
         ModelAndView modelAndView = resolveErrorView(request, response, status, model);
-        //return(modelAndView == null ? new ModelAndView("error", model) : modelAndView); //跳转视图
         return(modelAndView == null ? new ModelAndView("/error/toError") : modelAndView); //跳转controller
     }
 	

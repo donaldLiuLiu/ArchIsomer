@@ -1,27 +1,44 @@
 package com.freshjuice.fl.base.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.freshjuice.fl.base.service.ITempService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.freshjuice.fl.base.entity.JsonResult;
+import com.freshjuice.fl.base.entity.Temp;
+import com.freshjuice.fl.base.service.ITempService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * <p>
+ *  前端控制器
+ * </p>
+ *
+ * @author freshjuice
+ * @since 2019-10-27
+ */
 @RestController
+@RequestMapping("/base/temp")
 public class TempController {
-    private Logger logger = LoggerFactory.getLogger(TempController.class);
+
     @Autowired
     private ITempService tempService;
 
-    @RequestMapping(value={"/", "/index"}, method = RequestMethod.GET)
-    public String index() {
-        tempService.getTempById(1L);
-        logger.debug("index 世界");
-        return "index 世界";
+    @RequestMapping(value={"/", "/index"}, method = RequestMethod.GET, produces = {"application/json", "text/json"})
+    public JsonResult index() {
+        return JsonResult.buildSuccessResult("hello 世界");
     }
 
+    @RequestMapping(value={"/list"}, method = RequestMethod.GET, produces = {"application/json", "text/json"})
+    public JsonResult list() {
+        return JsonResult.buildSuccessResult(tempService.getListAll(new Page<>(1, 3), new Temp()).getRecords());
+    }
+
+    @PostMapping("/add")
+    public JsonResult add(@RequestBody Temp temp) {
+        tempService.save(temp);
+        return JsonResult.buildSuccessResult("添加成功");
+    }
 
 }
