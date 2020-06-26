@@ -5,7 +5,7 @@
 	
 	<!-- 通过property定义变量 -->
 	<springProfile name="dev">
-		<property name="FILE_PATH" value="D:\\ArchIsomerLog" />
+		<property name="FILE_PATH" value="${user.home}/logs" />
 	</springProfile>
 	<springProfile name="prod">
 		<property name="FILE_PATH" value="/usr/log/ArchIsomer" />
