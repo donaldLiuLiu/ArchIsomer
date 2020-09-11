@@ -1,6 +1,7 @@
 package com.freshjuice.fl.base.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -29,6 +30,8 @@ public class Temp extends BaseEntity<Long> implements Serializable {
     private String tempName;
 
     private Integer tempNum;
+
+    private BigDecimal tempDc;
 
     /*@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")*/
     @JsonFormat(pattern= "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
