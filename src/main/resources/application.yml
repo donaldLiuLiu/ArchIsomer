@@ -98,11 +98,11 @@ logging:
 #mybatis
 #mybatis:
 #  type-aliases-package: com.freshjuice.fl.base.entity
-#  mapper-locations: classpath:/**/*.sqlmap.xml
+#  mapper-locations: classpath*:com/freshjuice/fl/**/*.Mapper.xml
 #
 
 mybatis-plus:
-  mapper-locations: classpath*:/**/*.Mapper.xml
+  mapper-locations: classpath*:com/freshjuice/fl/**/*.Mapper.xml
   type-aliases-package: com.freshjuice.fl.**.entity
 
 #devtools restart相关配置
