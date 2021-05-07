@@ -13,7 +13,7 @@ Configuration加载规则
 
 AutoConfiguration机制原理如下：
 spring-boot-starter的起步依赖中，会加载spring-boot-autoconfigure.jar
-该jar包配置了大量的autoCOnfiguration类，采用javaConfig机制自动配置各种组件
+该jar包配置了大量的autoConfiguration类，采用javaConfig机制自动配置各种组件
 for instance:
 @Configuration
 @ConditionalOnProperty(value = "spring.mvc.favicon.enabled", matchIfMissing = true)
