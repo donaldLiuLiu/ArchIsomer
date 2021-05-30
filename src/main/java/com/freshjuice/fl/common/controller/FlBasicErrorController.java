@@ -1,4 +1,4 @@
-package com.freshjuice.fl.base.controller;
+package com.freshjuice.fl.common.controller;
 
 import java.io.IOException;
 import java.util.HashMap;

@@ -25,9 +25,9 @@ public class FlMybatisPlusConfig {
     /**
      * mybatis-plus SQL执行效率插件【生产环境需要关闭，否则影响系统性能】
      */
-    @Profile({"dev", "test"})
+    /*@Profile({"dev", "test"})
     @Bean
     public SqlExplainInterceptor performanceInterceptor() {
         return new SqlExplainInterceptor();
-    }
+    }*/
 }
