@@ -3,10 +3,9 @@ package com.freshjuice.fl.common.controller;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import com.freshjuice.fl.common.enums.JsonResultEnum;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
@@ -31,9 +30,9 @@ public class FlBasicErrorController extends BasicErrorController {
         HttpStatus status = getStatus(request);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("success", false);
-        map.put("code", "-1");
-        map.put("message", body.get("message"));
-        return new ResponseEntity<Map<String, Object>>(map, status);
+        map.put("code", JsonResultEnum.FAIL.getCode());
+        map.put("message", "path=["+body.get("path")+"];error=["+body.get("error")+"]");
+        return new ResponseEntity<>(map, status);
     }
     
     //覆盖 errorHtml 跳转/toError
@@ -42,11 +41,10 @@ public class FlBasicErrorController extends BasicErrorController {
         HttpStatus status = getStatus(request);
         response.setStatus(getStatus(request).value());
         Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
-        ModelAndView modelAndView = resolveErrorView(request, response, status, model);
-        return(modelAndView == null ? new ModelAndView("/error/toError") : modelAndView); //跳转controller
+        return new ModelAndView("error", model);
     }
-	
-    @RequestMapping("/error/toError")
+
+    @RequestMapping("errors")
     public void toError(HttpServletRequest request, HttpServletResponse response) {
     	try {
     		HttpStatus status = getStatus(request);
