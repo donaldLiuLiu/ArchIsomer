@@ -1,4 +1,4 @@
-package com.freshjuice.fl.entity;
+package com.freshjuice.fl.common.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
