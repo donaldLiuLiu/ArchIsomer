@@ -1,4 +1,4 @@
-package com.freshjuice.fl;
+package com.freshjuice.fl.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.SqlExplainInterceptor;

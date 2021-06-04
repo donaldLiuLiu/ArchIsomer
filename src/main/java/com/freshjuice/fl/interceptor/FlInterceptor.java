@@ -1,4 +1,4 @@
-package com.freshjuice.fl;
+package com.freshjuice.fl.interceptor;
 
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 import org.apache.ibatis.executor.statement.StatementHandler;
