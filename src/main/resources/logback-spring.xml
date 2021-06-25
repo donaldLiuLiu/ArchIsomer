@@ -53,7 +53,7 @@
 	</appender>
 
 	<!-- 通过logger定义package的日志打印 -->
-	<!--<logger name="com.freshjuice.fl.*.mapper" level="DEBUG" />-->
+	<!--<logger name="com.freshjuice.isomer.*.mapper" level="DEBUG" />-->
 
 
 	<root level="info">
