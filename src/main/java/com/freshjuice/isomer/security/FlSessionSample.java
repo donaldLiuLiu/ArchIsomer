@@ -1,6 +1,6 @@
 package com.freshjuice.isomer.security;
 
-public class FlSpringSessionSample {
+public class FlSessionSample {
 
     /**
      *依赖
