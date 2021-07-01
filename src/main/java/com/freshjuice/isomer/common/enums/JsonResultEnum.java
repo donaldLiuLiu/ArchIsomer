@@ -3,7 +3,9 @@ package com.freshjuice.isomer.common.enums;
 public enum JsonResultEnum {
     SUCCESS("1", "SUCCESS"),
     FAIL("-1", "FAIL"),
-    PERMISSION_DENIED("403", "403");
+    AUTHENTICATION_NEED("401", "401"),
+    PERMISSION_DENIED("403", "403"),
+    CSRF_TOKEN_FAIL("405", "405");
 
     private String code;
     private String text;

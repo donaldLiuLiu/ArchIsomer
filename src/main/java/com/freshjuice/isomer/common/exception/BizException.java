@@ -2,7 +2,6 @@ package com.freshjuice.isomer.common.exception;
 
 import com.freshjuice.isomer.common.enums.JsonResultEnum;
 import com.freshjuice.isomer.common.utils.StringUtils;
-
 import java.util.Optional;
 import java.util.function.Supplier;
 
