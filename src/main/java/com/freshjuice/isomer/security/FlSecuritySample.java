@@ -841,7 +841,16 @@ public class FlSecuritySample {
      * 		//清空remember-me的cookie
      * 		cancelCookie(request, response);
      * }
-     *
+     * PersistentTokenBasedRememberMeServices中重写
+     * @Override
+     * public void logout(HttpServletRequest request, HttpServletResponse response,
+     * 			Authentication authentication) {
+     * 		super.logout(request, response, authentication);
+     * 	    //清空TokenRepository
+     * 		if (authentication != null) {
+     * 			tokenRepository.removeUserTokens(authentication.getName());
+     *      }
+     *  }
      *
      *
      *

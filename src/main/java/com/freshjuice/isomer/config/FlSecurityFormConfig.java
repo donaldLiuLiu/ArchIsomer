@@ -1,16 +1,25 @@
 package com.freshjuice.isomer.config;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.freshjuice.isomer.common.constants.CommonConstants;
 import com.freshjuice.isomer.common.enums.JsonResultEnum;
 import com.freshjuice.isomer.common.utils.AuthenticationSuccessVoResolver;
 import com.freshjuice.isomer.common.utils.CompositeAuthenticationSuccessVoResolver;
+import com.freshjuice.isomer.common.utils.JacksonUtils;
 import com.freshjuice.isomer.common.vo.AuthenticationSuccessVo;
 import com.freshjuice.isomer.common.vo.JsonResult;
+import com.freshjuice.isomer.security.rememberme.FlRedisTokenRepositoryImpl;
 import com.freshjuice.isomer.security.form.FlDbUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,7 +27,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.InvalidCsrfTokenException;
 import org.springframework.security.web.csrf.MissingCsrfTokenException;
@@ -63,9 +71,14 @@ public class FlSecurityFormConfig<S extends Session> extends WebSecurityConfigur
         return source;
     }
 
-    @Bean
+    /*@Bean
     public InMemoryTokenRepositoryImpl inMemoryTokenRepositoryImpl() {
         return new InMemoryTokenRepositoryImpl();
+    }*/
+    @Bean
+    public FlRedisTokenRepositoryImpl flRedisTokenRepository() {
+        FlRedisTokenRepositoryImpl result = new FlRedisTokenRepositoryImpl();
+        return result;
     }
 
     @Autowired
@@ -177,8 +190,8 @@ public class FlSecurityFormConfig<S extends Session> extends WebSecurityConfigur
                 .and()
                 .rememberMe()          //remember-me
                 .key("rememberMeKey")
-                .tokenRepository(inMemoryTokenRepositoryImpl())
-                .tokenValiditySeconds(7 * 24 * 60 * 60)
+                .tokenRepository(flRedisTokenRepository())
+                .tokenValiditySeconds(CommonConstants.tokenValiditySeconds)
                 .and()
                 .sessionManagement()    //session-management
                 .sessionAuthenticationFailureHandler((req, resp, ex) -> {
