@@ -8,9 +8,16 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @Configuration
 public class FlSessionConfig {
+
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
+    }
+
 
     //TODO,spring session中使用Jackson序列化表示很多类(如spring session中的序列化类Authentication实现)不能很好的兼容，所以这里注释掉使用默认的jdk序列化
     /*@Bean
