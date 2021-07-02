@@ -791,6 +791,7 @@ public class FlSecuritySample {
      *4、如果配置rememberMe()，将开启rememberMe功能，chain中将设置RememberMeAuthenticationFilter
      * tokenRepository(inMemoryTokenRepositoryImpl())将使用PersistentTokenBasedRememberMeServices和InMemoryTokenRepositoryImpl
      * 并且AbstractAuthenticationProcessingFilter,RememberMeAuthenticationFilter中均注入相同的PersistentTokenBasedRememberMeServices实现
+     * other: tokenRepository(flRedisTokenRepository())使用FlRedisTokenRepositoryImpl替代InMemoryTokenRepositoryImpl
      *
      *AbstractAuthenticationProcessingFilter中{
      *     认证成功
@@ -882,7 +883,7 @@ public class FlSecuritySample {
      *1、默认实现类是CompositeSessionAuthenticationStrategy
      *public class CompositeSessionAuthenticationStrategy {
      *     private final List<SessionAuthenticationStrategy> delegateStrategies;
-     *     //TODO,如下，他是循环使用delegateStrategies
+     *     //TODO,如下，循环delegateStrategies
      *     for (SessionAuthenticationStrategy delegate : this.delegateStrategies) {
      * 			delegate.onAuthentication(authentication, request, response);
      * 	   }

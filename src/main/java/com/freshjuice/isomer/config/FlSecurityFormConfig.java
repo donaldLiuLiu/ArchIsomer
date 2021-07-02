@@ -1,13 +1,10 @@
 package com.freshjuice.isomer.config;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.freshjuice.isomer.common.constants.CommonConstants;
 import com.freshjuice.isomer.common.enums.JsonResultEnum;
 import com.freshjuice.isomer.common.utils.AuthenticationSuccessVoResolver;
 import com.freshjuice.isomer.common.utils.CompositeAuthenticationSuccessVoResolver;
-import com.freshjuice.isomer.common.utils.JacksonUtils;
 import com.freshjuice.isomer.common.vo.AuthenticationSuccessVo;
 import com.freshjuice.isomer.common.vo.JsonResult;
 import com.freshjuice.isomer.security.rememberme.FlRedisTokenRepositoryImpl;
@@ -15,11 +12,6 @@ import com.freshjuice.isomer.security.form.FlDbUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -71,6 +63,35 @@ public class FlSecurityFormConfig<S extends Session> extends WebSecurityConfigur
         return source;
     }
 
+
+    /*when using SessionRegistryImpl
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
+    }*/
+    @Autowired
+    private FindByIndexNameSessionRepository<S> sessionRepository;
+    @Bean
+    public SpringSessionBackedSessionRegistry<S> springSessionBackedSessionRegistry() {
+        return new SpringSessionBackedSessionRegistry<>(this.sessionRepository);
+    }
+    //spring session中使用Jackson序列化表示很多类(如spring session中的序列化类Authentication实现)不能很好的兼容，所以这里注释掉使用默认的jdk序列化
+    /*@Bean
+    @Qualifier("springSessionDefaultRedisSerializer")
+    public Jackson2JsonRedisSerializer<Object> defaultRedisSerializer() {
+        ObjectMapper omToUse = new ObjectMapper();
+        omToUse.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        omToUse.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        omToUse.registerModule(JacksonUtils.defaultJavaTimeModule());
+
+        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
+        jackson2JsonRedisSerializer.setObjectMapper(omToUse);
+
+        return jackson2JsonRedisSerializer;
+    }*/
+
+
+
     /*@Bean
     public InMemoryTokenRepositoryImpl inMemoryTokenRepositoryImpl() {
         return new InMemoryTokenRepositoryImpl();
@@ -81,12 +102,6 @@ public class FlSecurityFormConfig<S extends Session> extends WebSecurityConfigur
         return result;
     }
 
-    @Autowired
-    private FindByIndexNameSessionRepository<S> sessionRepository;
-    @Bean
-    public SpringSessionBackedSessionRegistry<S> springSessionBackedSessionRegistry() {
-        return new SpringSessionBackedSessionRegistry<>(this.sessionRepository);
-    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
