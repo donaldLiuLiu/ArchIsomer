@@ -55,13 +55,61 @@ public class FlSessionSample {
      *       filter-dispatcher-types: ASYNC,REQUEST
      *
      *第二: RedisOperationsSessionRepository
+     *  RedisHttpSessionConfiguration中创建RedisOperationsSessionRepository的bean
+     *  @Bean
+     *  public RedisOperationsSessionRepository sessionRepository() {
+     * 		RedisTemplate<Object, Object> redisTemplate = createRedisTemplate();
+     * 	    //TODO,使用RedisTemplate创建RedisOperationsSessionRepository
+     * 		RedisOperationsSessionRepository sessionRepository = new RedisOperationsSessionRepository(redisTemplate);
+     * 	    //TODO,设置ApplicationEventPublisher
+     * 		sessionRepository.setApplicationEventPublisher(this.applicationEventPublisher);
+     * 		if (this.defaultRedisSerializer != null) {
+     * 			sessionRepository.setDefaultSerializer(this.defaultRedisSerializer);
+     *      }
+     *      //TODO,Session失效时间,将会设置成redis中spring:session:sessions:的失效时间
+     * 		sessionRepository.setDefaultMaxInactiveInterval(this.maxInactiveIntervalInSeconds);
+     * 		if (StringUtils.hasText(this.redisNamespace)) {
+     * 			sessionRepository.setRedisKeyNamespace(this.redisNamespace);
+     *      }
+     * 		sessionRepository.setRedisFlushMode(this.redisFlushMode);
+     * 		int database = resolveDatabase();
+     * 		sessionRepository.setDatabase(database);
+     * 		return sessionRepository;
+     *  }
+     *
+     * //TODO??for what???
+     *  @Bean
+     *  public RedisMessageListenerContainer redisMessageListenerContainer() {
+     * 		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+     * 		container.setConnectionFactory(this.redisConnectionFactory);
+     * 		if (this.redisTaskExecutor != null) {
+     * 			container.setTaskExecutor(this.redisTaskExecutor);
+     *      }
+     * 		if (this.redisSubscriptionExecutor != null) {
+     * 			container.setSubscriptionExecutor(this.redisSubscriptionExecutor);
+     *      }
+     * 		container.addMessageListener(sessionRepository(), Arrays.asList(
+     * 				new ChannelTopic(sessionRepository().getSessionDeletedChannel()),
+     * 				new ChannelTopic(sessionRepository().getSessionExpiredChannel())));
+     * 		container.addMessageListener(sessionRepository(),
+     * 				Collections.singletonList(new PatternTopic(
+     * 						sessionRepository().getSessionCreatedChannelPrefix() + "*")));
+     * 		return container;
+     *  }
      *
      *
+     *  //TODO,定时调用RedisOperationsSessionRepository的cleanupExpiredSessions()
+     *  @Override
+     *  public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
+     * 		taskRegistrar.addCronTask(() -> sessionRepository().cleanupExpiredSessions(),
+     * 				this.cleanupCron);
+     *  }
      *
      *
      *第三: 与spring security
      * 1、SessionRegistry
      * 使用SpringSessionBackedSessionRegistry,替代SessionRegistryImpl {@link FlSecuritySample}/第十: session-management/4
+     *     //TODO,这个Repository就是上述的RedisOperationsSessionRepository，所以Registry默认就是使用Repository
      *     @Autowired
      *     private FindByIndexNameSessionRepository<S> sessionRepository;
      *     @Bean
