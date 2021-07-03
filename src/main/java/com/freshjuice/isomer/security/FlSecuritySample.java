@@ -347,7 +347,7 @@ public class FlSecuritySample {
      * TokenBasedRememberMeServices            @see remember-me/6
      * CookieClearingLogoutHandler             清空指定cookie
      * CsrfLogoutHandler                       @see csrf
-     * SecurityContextLogoutHandler            默认设置，用于清空HttpSession和当前线程SecurityContext
+     * SecurityContextLogoutHandler            默认设置，用于注销HttpSession(session.invalidate();)和清空当前线程SecurityContext
      *
      *
      *
@@ -934,6 +934,10 @@ public class FlSecuritySample {
      *     //保存
      *     registerNewSession(String sessionId, Object principal);
      *}
+     *TODO,内存泄漏问题,如果重复登录，并且携带上一次调用的s-token,将会导致SessionRegistryImpl中数据无法清理
+     *TODO,重复登录，每次不携带s-token,新生成HttpSession,被顶掉的HttpSession还在，对应的SessionRegistryImpl打上过期标记,如果HttpSession超时注销，SessionRegistryImpl可以响应此事件
+     *TODO,登录成功，返回s-token和remember-me，HttpSession and SessionRegistryImpl(false),此时不带s-token,使用remember-me访问非登录接口(将触发remember-me登录),新生成HttpSession,被顶掉的HttpSession还在，对应的SessionRegistryImpl打上过期标记,如果HttpSession超时注销，SessionRegistryImpl可以响应此事件
+     *
      *
      *3)、ConcurrentSessionFilter
      * 如果配置了maximumSessions(1),在chain中增加拦截器，用于配合 4、"用户同时在线数量控制"和"会话失效"
