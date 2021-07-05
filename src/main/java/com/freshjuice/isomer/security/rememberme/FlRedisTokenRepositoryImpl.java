@@ -29,6 +29,10 @@ public class FlRedisTokenRepositoryImpl implements PersistentTokenRepository {
 
     @Override
     public void createNewToken(PersistentRememberMeToken token) {
+        String currentUserExistsSeries = (String) redisTemplate.opsForValue().get(TOKEN_PREFIX_USERNAME + token.getUsername());
+        if(currentUserExistsSeries != null) {
+            redisTemplate.delete(TOKEN_PREFIX_SERIES + currentUserExistsSeries);
+        }
         PersistentRememberMeTokenWrap tokenWrapper = new PersistentRememberMeTokenWrap(token);
         redisTemplate.opsForValue().set(TOKEN_PREFIX_SERIES + token.getSeries(), tokenWrapper, CommonConstants.tokenValiditySeconds, TimeUnit.SECONDS);
         redisTemplate.opsForValue().set(TOKEN_PREFIX_USERNAME + token.getUsername(), tokenWrapper.getSeries(), CommonConstants.tokenValiditySeconds, TimeUnit.SECONDS);
