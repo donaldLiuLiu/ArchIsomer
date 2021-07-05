@@ -117,6 +117,13 @@ public class FlSessionSample {
      *         return new SpringSessionBackedSessionRegistry<>(this.sessionRepository);
      *     }
      *     sessionRegistry(springSessionBackedSessionRegistry())
+     *
+     *TODO,内存泄漏问题,如果重复登录，并且携带上一次调用的s-token,HttpSession的id被修改成新id(相当于原来的HttpSession被删掉了),index中旧的sessionId没有被清理掉
+     *TODO,重复登录，每次不携带s-token,新生成HttpSession,index中写入新的sessionId，原来的HttpSession还在，index中还在，打上过期标记。index中原来的sessionId不好清理
+     *TODO,登录成功，返回s-token和remember-me，HttpSession and SessionRegistryImpl(false),此时不带s-token,使用remember-me访问非登录接口(将触发remember-me登录),新生成HttpSession,index中写入新的sessionId，原来的HttpSession还在，index中还在，打上过期标记。index中原来的sessionId不好清理
+     *TODO,登录成功 ... spring:session:sessions过期后，index中对应的sessionId不会被自动清除
+     *
+     *
      */
 
 
