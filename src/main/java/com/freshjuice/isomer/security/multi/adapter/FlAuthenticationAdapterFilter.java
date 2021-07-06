@@ -1,9 +1,6 @@
 package com.freshjuice.isomer.security.multi.adapter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.freshjuice.isomer.security.multi.CompositeLoginParamResolver;
-import com.freshjuice.isomer.security.multi.LoginParam;
-import com.freshjuice.isomer.security.multi.LoginParamResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -32,7 +29,7 @@ public class FlAuthenticationAdapterFilter extends GenericFilter {
     private String headerTag = "AUTH";
     private String headerTagValue = "JSON";
     private ObjectMapper objectMapper;
-    private LoginParamResolver loginParamResolver = new CompositeLoginParamResolver();
+    private LoginParamAdapterResolver loginParamResolver = new CompositeLoginParamAdapterResolver();
 
     private RequestMatcher requiresAuthenticationRequestMatcher = new AntPathRequestMatcher("/login", "POST");
     private FlAuthenticationAdapterFailureHandler failureHandler;
@@ -54,7 +51,7 @@ public class FlAuthenticationAdapterFilter extends GenericFilter {
         this.failureHandler = failureHandler;
     }
 
-    public void setLoginParamResolver(LoginParamResolver loginParamResolver) {
+    public void setLoginParamResolver(LoginParamAdapterResolver loginParamResolver) {
         this.loginParamResolver = loginParamResolver;
     }
 
@@ -122,14 +119,14 @@ public class FlAuthenticationAdapterFilter extends GenericFilter {
 
         CusParamsRequestWrapper wrappedRequest = new CusParamsRequestWrapper(request);
 
-        LoginParam loginParam = null;
+        LoginParamAdapter loginParam = null;
         try {
-            loginParam = objectMapper.readValue(wrappedRequest.getInputStream(), LoginParam.class);
+            loginParam = objectMapper.readValue(wrappedRequest.getInputStream(), LoginParamAdapter.class);
         } catch(Exception e) {
             log.error("反序列化获取用户登录信息失败, {}", e);
             throw new AuthenticationAdapterException("反序列化获取用户登录信息失败", e);
         }
-        LoginParam loginParamResolved;
+        LoginParamAdapter loginParamResolved;
         try {
             loginParamResolved = loginParamResolver.resolve(loginParam);
         } catch (AuthenticationException e) {

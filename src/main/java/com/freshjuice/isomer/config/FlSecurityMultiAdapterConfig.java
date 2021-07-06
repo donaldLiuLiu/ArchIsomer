@@ -8,8 +8,7 @@ import com.freshjuice.isomer.common.utils.CompositeAuthenticationSuccessVoResolv
 import com.freshjuice.isomer.common.vo.AuthenticationSuccessVo;
 import com.freshjuice.isomer.common.vo.JsonResult;
 import com.freshjuice.isomer.security.form.FlDbUserDetailsService;
-import com.freshjuice.isomer.security.multi.*;
-import com.freshjuice.isomer.security.multi.adapter.FlAuthenticationAdapterFilter;
+import com.freshjuice.isomer.security.multi.adapter.*;
 import com.freshjuice.isomer.security.rememberme.FlRedisTokenRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
+@Deprecated
 //@Configuration
 public class FlSecurityMultiAdapterConfig<S extends Session> extends WebSecurityConfigurerAdapter {
 
@@ -107,20 +107,20 @@ public class FlSecurityMultiAdapterConfig<S extends Session> extends WebSecurity
     }
 
     @Autowired
-    private LoginParamService loginParamService;
+    private LoginParamAdapterService loginParamService;
     @Bean
-    public PhoneLoginParamResolver phoneLoginParamResolver() {
-        PhoneLoginParamResolver phoneLoginParamResolver = new PhoneLoginParamResolver(loginParamService);
+    public PhoneLoginParamAdapterResolver phoneLoginParamResolver() {
+        PhoneLoginParamAdapterResolver phoneLoginParamResolver = new PhoneLoginParamAdapterResolver(loginParamService);
         return phoneLoginParamResolver;
     }
     @Bean
-    public PasswordLoginParamResolver passwordLoginParamResolver() {
-        PasswordLoginParamResolver passwordLoginParamResolver = new PasswordLoginParamResolver(loginParamService);
+    public PasswordLoginParamAdapterResolver passwordLoginParamResolver() {
+        PasswordLoginParamAdapterResolver passwordLoginParamResolver = new PasswordLoginParamAdapterResolver(loginParamService);
         return passwordLoginParamResolver;
     }
     @Bean
-    public CompositeLoginParamResolver compositeLoginParamResolver() {
-        CompositeLoginParamResolver compositeLoginParamResolver = new CompositeLoginParamResolver();
+    public CompositeLoginParamAdapterResolver compositeLoginParamResolver() {
+        CompositeLoginParamAdapterResolver compositeLoginParamResolver = new CompositeLoginParamAdapterResolver();
         compositeLoginParamResolver.addResolver(phoneLoginParamResolver());
         compositeLoginParamResolver.addResolver(passwordLoginParamResolver());
         return compositeLoginParamResolver;

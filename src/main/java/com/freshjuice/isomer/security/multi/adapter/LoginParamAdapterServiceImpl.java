@@ -1,4 +1,4 @@
-package com.freshjuice.isomer.security.multi;
+package com.freshjuice.isomer.security.multi.adapter;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.freshjuice.isomer.common.utils.RedisKeyUtils;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class LoginParamServiceImpl implements LoginParamService {
+public class LoginParamAdapterServiceImpl implements LoginParamAdapterService {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
@@ -27,16 +27,16 @@ public class LoginParamServiceImpl implements LoginParamService {
 
     @Override
     public void checkSmsCode(String phone, String code) {
-        if(code==null || code.trim().length()==0) throw new SmsCodeNotEqException("请输入验证码");
+        if(code==null || code.trim().length()==0) throw new SmsCodeNotEqAdapterException("请输入验证码");
         String savedCode = null;
         try {
             savedCode = (String) redisTemplate.opsForValue().get(RedisKeyUtils.getSmsCode(phone));
         } catch (Exception e) {
             log.warn("获取，{}的验证码时发生错误，{}", phone, e);
-            throw new SmsCodeInvalidException("验证码已失效,phone=["+phone+"]");
+            throw new SmsCodeInvalidAdapterException("验证码已失效,phone=["+phone+"]");
         }
-        if(savedCode == null) throw new SmsCodeInvalidException("验证码已失效,phone=["+phone+"]");
-        if(!savedCode.equals(code)) throw new SmsCodeNotEqException("验证码不匹配");
+        if(savedCode == null) throw new SmsCodeInvalidAdapterException("验证码已失效,phone=["+phone+"]");
+        if(!savedCode.equals(code)) throw new SmsCodeNotEqAdapterException("验证码不匹配");
     }
 
 }

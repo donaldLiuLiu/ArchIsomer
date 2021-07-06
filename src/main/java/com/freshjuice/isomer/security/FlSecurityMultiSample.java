@@ -10,9 +10,9 @@ public class FlSecurityMultiSample {
      * 5、可配置的授权
      */
 
- //覆盖(替换)方案
-       //定义拦截器处理认证，继承自AbstractAuthenticationProcessingFilter或者UsernamePasswordAuthenticationFilter
-       //基类中的相关组件是否都是自动设置了的?配置可能一大串？原来的链式配置？
+ //替换方案
+       //定义拦截器处理认证，继承自AbstractAuthenticationProcessingFilter替换UsernamePasswordAuthenticationFilter
+       //AbstractAuthenticationProcessingFilter中的组件，
        //相同的登录接口路径，如果进入到自定义的拦截器，需要处理认证，认证后请求不能转发到UsernamePasswordAuthenticationFilter
        //相同的认证代码，冗余
 

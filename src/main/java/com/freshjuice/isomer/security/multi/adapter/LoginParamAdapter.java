@@ -1,9 +1,9 @@
-package com.freshjuice.isomer.security.multi;
+package com.freshjuice.isomer.security.multi.adapter;
 
 import lombok.Data;
 
 @Data
-public class LoginParam {
+public class LoginParamAdapter {
     private String userName;
     private String password;
     private String rememberMe; //on yes true 1 and the other side
