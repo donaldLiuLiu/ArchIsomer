@@ -1,4 +1,4 @@
-package com.freshjuice.isomer.common.utils;
+package com.freshjuice.isomer.security.form;
 
 import com.freshjuice.isomer.common.vo.AuthenticationSuccessVo;
 import org.springframework.security.core.Authentication;

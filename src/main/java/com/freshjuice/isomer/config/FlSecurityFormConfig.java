@@ -3,15 +3,14 @@ package com.freshjuice.isomer.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.freshjuice.isomer.common.constants.CommonConstants;
 import com.freshjuice.isomer.common.enums.JsonResultEnum;
-import com.freshjuice.isomer.common.utils.AuthenticationSuccessVoResolver;
-import com.freshjuice.isomer.common.utils.CompositeAuthenticationSuccessVoResolver;
+import com.freshjuice.isomer.security.form.AuthenticationSuccessVoResolver;
+import com.freshjuice.isomer.security.form.CompositeAuthenticationSuccessVoResolver;
 import com.freshjuice.isomer.common.vo.AuthenticationSuccessVo;
 import com.freshjuice.isomer.common.vo.JsonResult;
 import com.freshjuice.isomer.security.rememberme.FlRedisTokenRepositoryImpl;
 import com.freshjuice.isomer.security.form.FlDbUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
-@Configuration
+//@Configuration
 public class FlSecurityFormConfig<S extends Session> extends WebSecurityConfigurerAdapter {
 
     @Autowired
