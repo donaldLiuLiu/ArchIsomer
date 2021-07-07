@@ -1,5 +1,9 @@
 package com.freshjuice.isomer.security;
 
+import com.freshjuice.isomer.security.multi.rep.AuthenticationRepFilter;
+import com.freshjuice.isomer.security.multi.rep.AuthenticationRepConfigurer;
+import com.freshjuice.isomer.config.FlSecurityMultiRepConfig;
+
 public class FlSecurityMultiSample {
 
     /**
@@ -11,18 +15,43 @@ public class FlSecurityMultiSample {
      */
 
  //替换方案
-       //定义拦截器处理认证，继承自AbstractAuthenticationProcessingFilter替换UsernamePasswordAuthenticationFilter
-       //AbstractAuthenticationProcessingFilter中的组件，
-       //相同的登录接口路径，如果进入到自定义的拦截器，需要处理认证，认证后请求不能转发到UsernamePasswordAuthenticationFilter
-       //相同的认证代码，冗余
+     //定义拦截器处理认证，继承自AbstractAuthenticationProcessingFilter替换UsernamePasswordAuthenticationFilter
+     //AbstractAuthenticationProcessingFilter中的组件，链式配置
+    /**
+     * @see FlSecurityMultiRepConfig
+     * @see AuthenticationRepFilter
+     * @see AuthenticationRepConfigurer
+     */
+    /**
+     *filter chain:
+     * org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter
+     * org.springframework.security.web.context.SecurityContextPersistenceFilter
+     * org.springframework.security.web.header.HeaderWriterFilter
+     * org.springframework.web.filter.CorsFilter
+     * org.springframework.security.web.csrf.CsrfFilter
+     * org.springframework.security.web.authentication.logout.LogoutFilter
+     * com.freshjuice.isomer.security.multi.rep.RepRequestParamsFilter    wrapper request
+     * com.freshjuice.isomer.security.multi.rep.AuthenticationRepFilter  替换UsernamePasswordAuthenticationFilter
+     * org.springframework.security.web.session.ConcurrentSessionFilter
+     * org.springframework.security.web.savedrequest.RequestCacheAwareFilter
+     * org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter
+     * org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter
+     * org.springframework.security.web.authentication.AnonymousAuthenticationFilter
+     * org.springframework.security.web.session.SessionManagementFilter
+     * org.springframework.security.web.access.ExceptionTranslationFilter
+     * org.springframework.security.web.access.intercept.FilterSecurityInterceptor
+     *
+     *
+     */
 
 
- //适配方案 定义一个UsernamePasswordAuthenticationFilter的前置拦截器
+ //适配方案
+     //适配方案 定义一个UsernamePasswordAuthenticationFilter的前置拦截器
      //如果是JSON参数，则将参数等适配，然后将请求转发到UsernamePasswordAuthenticationFilter
      //如果不是JSON参数,此前置执行直接转发到UsernamePasswordAuthenticationFilter
     /**
-     * @see com.freshjuice.isomer.security.multi.adapter.FlAuthenticationAdapterFilter
      * @see com.freshjuice.isomer.config.FlSecurityMultiAdapterConfig
+     * @see com.freshjuice.isomer.security.multi.adapter.FlAuthenticationAdapterFilter
      */
 
 
