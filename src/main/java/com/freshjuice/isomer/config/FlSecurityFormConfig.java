@@ -7,7 +7,7 @@ import com.freshjuice.isomer.security.form.AuthenticationSuccessVoResolver;
 import com.freshjuice.isomer.security.form.CompositeAuthenticationSuccessVoResolver;
 import com.freshjuice.isomer.common.vo.AuthenticationSuccessVo;
 import com.freshjuice.isomer.common.vo.JsonResult;
-import com.freshjuice.isomer.security.rememberme.FlRedisTokenRepositoryImpl;
+import com.freshjuice.isomer.security.rememberme.RedisTokenRepositoryImpl;
 import com.freshjuice.isomer.security.form.FlDbUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -96,8 +96,8 @@ public class FlSecurityFormConfig<S extends Session> extends WebSecurityConfigur
         return new InMemoryTokenRepositoryImpl();
     }*/
     @Bean
-    public FlRedisTokenRepositoryImpl flRedisTokenRepository() {
-        FlRedisTokenRepositoryImpl result = new FlRedisTokenRepositoryImpl();
+    public RedisTokenRepositoryImpl flRedisTokenRepository() {
+        RedisTokenRepositoryImpl result = new RedisTokenRepositoryImpl();
         return result;
     }
 

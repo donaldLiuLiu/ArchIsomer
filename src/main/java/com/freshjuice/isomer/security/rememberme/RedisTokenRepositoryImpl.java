@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class FlRedisTokenRepositoryImpl implements PersistentTokenRepository {
+public class RedisTokenRepositoryImpl implements PersistentTokenRepository {
 
     public static final String TOKEN_PREFIX_SERIES = "remember-me:token:";
     public static final String TOKEN_PREFIX_USERNAME = "remember-me:username:";
