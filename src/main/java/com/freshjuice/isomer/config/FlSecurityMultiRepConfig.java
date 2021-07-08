@@ -10,8 +10,10 @@ import com.freshjuice.isomer.security.multi.rep.token.LoginParamAuthenticationPr
 import com.freshjuice.isomer.security.multi.rep.userdetails.RepUserDetailsService;
 import com.freshjuice.isomer.security.rememberme.RedisTokenRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -74,6 +76,18 @@ public class FlSecurityMultiRepConfig<S extends Session> extends WebSecurityConf
     public SpringSessionBackedSessionRegistry<S> springSessionBackedSessionRegistry() {
         return new SpringSessionBackedSessionRegistry<>(this.sessionRepository);
     }
+    /*@Bean
+    @Qualifier("springSessionRedisTaskExecutor")
+    public ThreadPoolTaskExecutor springSessionRedisTaskExecutor() {
+        ThreadPoolTaskExecutor springSessionRedisTaskExecutor = new ThreadPoolTaskExecutor();
+        springSessionRedisTaskExecutor.setCorePoolSize(8);
+        springSessionRedisTaskExecutor.setMaxPoolSize(16);
+        springSessionRedisTaskExecutor.setKeepAliveSeconds(10);
+        springSessionRedisTaskExecutor.setQueueCapacity(1000);
+        springSessionRedisTaskExecutor.setThreadNamePrefix("Spring session redis executor thread");
+
+        return springSessionRedisTaskExecutor;
+    }*/
 //spring session中使用Jackson序列化表示很多类(如spring session中的序列化类Authentication实现)不能很好的兼容，所以这里注释掉使用默认的jdk序列化
     /*@Bean
     @Qualifier("springSessionDefaultRedisSerializer")
