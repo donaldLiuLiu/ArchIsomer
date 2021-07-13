@@ -4,9 +4,10 @@ public class FlSecuritySample {
 
     /**
      * spring security的使用取舍
-     * 1、针对app端的服务与针对后端管理系统的服务
-     * 2、后端不清楚前端页面跳转，只提供数据接口
-     * 3、auth2，JWTToken
+     * 1、针对基于浏览器访问的spring security架子可以采用:{@link FlSecurityMultiSample},{@link FlSecurityFormSample}
+     * 2、针对移动应用的无状态认证,基于浏览器访问的认证也可以采用无状态认证
+     *    1)、JWT @see xy-common
+     *    2)、OAuth2 @see ArchPoner
      */
 
     /**
